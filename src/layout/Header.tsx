@@ -114,7 +114,6 @@ export function Header() {
      * navigateDetail(noti);
      */
     const navigateDetail = (noti: Notification) => {
-        // ✔ 카드 클릭은 상세로 이동만 (읽음 처리 X)
         if (noti.type?.startsWith('SHIPPING')) navigate('/orders/123/shipping');
         else if (noti.type?.startsWith('BACKING') || noti.type?.startsWith('PAYMENT')) navigate('/orders/123');
         else if (noti.type === 'QNA_REPLY') navigate('/qna/456');
@@ -283,22 +282,24 @@ export function Header() {
                             </div>
 
                             <nav className="hidden md:flex items-end gap-8 whitespace-nowrap">
-                                {navItems.map((item) => (
-                                    <NavLink
-                                        key={item.to}
-                                        to={item.to}
-                                        end={item.to === "/"}
-                                        className={({ isActive }) =>
-                                            clsx("px-1 pb-3 font-medium border-b-2 transition-colors",
-                                                isActive
-                                                    ? "text-gray-900 border-blue-600"
-                                                    : "text-gray-700 hover:text-blue-600 border-transparent"
-                                            )
-                                        }
-                                    >
-                                        {item.label}
-                                    </NavLink>
-                                ))}
+                                <nav className="hidden md:flex items-end gap-8 whitespace-nowrap">
+                                    {navItems.map((item) => (
+                                        <NavLink
+                                            key={item.to}
+                                            to={item.to}
+                                            end={item.to === "/" || item.to === "/project"}
+                                            className={({ isActive }) =>
+                                                clsx(
+                                                    "px-1 pb-3 font-medium border-b-2 transition-colors",
+                                                    isActive ? "text-gray-900 border-blue-600"
+                                                        : "text-gray-700 hover:text-blue-600 border-transparent"
+                                                )
+                                            }
+                                        >
+                                            {item.label}
+                                        </NavLink>
+                                    ))}
+                                </nav>
                             </nav>
                         </div>
                         <div className="hidden md:block w-[300px] max-w-[50vw]">
